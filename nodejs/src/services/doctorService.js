@@ -167,17 +167,9 @@ let bulkCreateSchedule = (data) => {
                     }
                 );
 
-                //convert date
-                if (existing && existing.length > 0) {
-                    existing = existing.map(item => {
-                        item.date = new Date(item.date).getTime();
-                        return item;
-                    })
-                }
-
                 //compare different
                 let toCreate = _.differenceWith(schedule, existing, (a, b) => {
-                    return a.timeType === b.timeType && a.date === b.date;
+                    return a.timeType === b.timeType && +a.date === +b.date;
                 });
 
                 //create data
@@ -196,10 +188,10 @@ let bulkCreateSchedule = (data) => {
     })
 }
 
-let getScheduleByDate = (doctorIdi, datei) => {
+let getScheduleByDate = (doctorId, date) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!doctorIdi || !datei) {
+            if (!doctorId || !date) {
                 resolve({
                     errCode: 1,
                     errMessage: 'missing required parameters'
@@ -207,9 +199,15 @@ let getScheduleByDate = (doctorIdi, datei) => {
             } else {
                 let dataSchedule = await db.Schedule.findAll({
                     where: {
-                        doctorId: doctorIdi,
-                        date: datei
+                        doctorId: doctorId,
+                        date: date
                     },
+
+                    include: [
+                        { model: db.Allcode, as: 'timeTypeData', attributes: ['valueEn', 'valueVi'] }
+                    ],
+                    raw: false,
+                    nest: true
                 })
 
                 if (!dataSchedule) dataSchedule = [];
