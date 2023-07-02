@@ -93,7 +93,7 @@ let saveDetailInforDoctor = (inputData) => {
                 }
 
                 //upsert to Doctor_infor table
-                let doctorInfor = await db.Doctor_Infor.fineOne({
+                let doctorInfor = await db.Doctor_Infor.findOne({
                     where: {
                         doctorId: inputData.doctorId
                     },
@@ -114,9 +114,9 @@ let saveDetailInforDoctor = (inputData) => {
                     //create
                     await db.Doctor_Infor.create({
                         doctorId: inputData.doctorId,
-                        priceId: selectedPrice,
-                        provinceId: selectedProvince,
-                        paymentId: selectedPayment,
+                        priceId: inputData.selectedPrice,
+                        provinceId: inputData.selectedProvince,
+                        paymentId: inputData.selectedPayment,
                         nameClinic: inputData.nameClinic,
                         addressClinic: inputData.addressClinic,
                         note: inputData.note

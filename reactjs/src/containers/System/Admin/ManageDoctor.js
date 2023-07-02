@@ -229,7 +229,7 @@ class ManageDoctor extends Component {
                         <label><FormattedMessage id="admin.manage-doctor.payment" /></label>
                         <Select
                             value={this.state.selectedPayment}
-                            onChange={this.handleChangeSelect}
+                            onChange={this.handleChangeSelectDoctorInfor}
                             options={this.state.listPayment}
                             placeholder={<FormattedMessage id="admin.manage-doctor.payment" />}
                             name='selectedPayment'
@@ -239,7 +239,7 @@ class ManageDoctor extends Component {
                         <label><FormattedMessage id="admin.manage-doctor.province" /></label>
                         <Select
                             value={this.state.selectedProvince}
-                            onChange={this.handleChangeSelect}
+                            onChange={this.handleChangeSelectDoctorInfor}
                             options={this.state.listProvince}
                             placeholder={<FormattedMessage id="admin.manage-doctor.province" />}
                             name='selectedProvince'
