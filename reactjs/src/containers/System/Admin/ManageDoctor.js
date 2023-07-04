@@ -64,7 +64,7 @@ class ManageDoctor extends Component {
                     let labelVi = `${item.valueVi}`;
                     let labelEn = `${item.valueEn} USD`;
                     object.label = language === LANGUAGES.VI ? labelVi : labelEn;
-                    object.value = item.id;
+                    object.value = item.keyMap;
                     result.push(object);
                 })
             }
@@ -74,7 +74,7 @@ class ManageDoctor extends Component {
                     let labelVi = `${item.valueVi}`;
                     let labelEn = `${item.valueEn}`;
                     object.label = language === LANGUAGES.VI ? labelVi : labelEn;
-                    object.value = item.id;
+                    object.value = item.keyMap;
                     result.push(object);
                 })
             }
@@ -168,23 +168,19 @@ class ManageDoctor extends Component {
                 paymentId = res.data.Doctor_Infor.paymentId;
                 priceId = res.data.Doctor_Infor.priceId;
                 provinceId = res.data.Doctor_Infor.provinceId;
+                console.log('check doctor infor: ', res.data.Doctor_Infor)
 
                 selectedPayment = listPayment.find(item => {
-                    return item && item.value == paymentId
+                    return item && item.value === paymentId
                 })
                 selectedPrice = listPrice.find(item => {
-                    // return item && item.value === priceId
-                    return item && item.value == priceId
-                }
-                    // item.value == priceId
-                    // type value priceId is string type value selectledPrice (item.value) is number -> use == instead of ===
-                )
+                    return item && item.value === priceId
+                })
                 selectedProvince = listProvince.find(item => {
-                    return item && item.value == provinceId
-                    // item.value = provinceId
+                    return item && item.value === provinceId
                 })
                 console.log('check selected: ', selectedPayment, selectedPrice, selectedProvince)
-                // console.log('check id: ', paymentId, priceId, provinceId)
+                console.log('check id: ', paymentId, priceId, provinceId)
                 console.log('check list: ', listPayment, listPrice, listProvince)
             }
             this.setState({
