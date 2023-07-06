@@ -1,7 +1,8 @@
 import express from "express";
 import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
-import doctorConroller from "../controllers/doctorController";
+import doctorController from "../controllers/doctorController";
+import patientController from '../controllers/patientController';
 
 let router = express.Router();
 
@@ -21,15 +22,17 @@ let initWebRoutes = (app) => {
     router.delete('/api/delete-user', userController.handleDeleteUser);
     router.get('/api/allcode', userController.getAllCode);
 
-    router.get('/api/top-doctor-home', doctorConroller.getTopDoctorHome);
-    router.get('/api/get-all-doctors', doctorConroller.getAllDoctors);
-    router.post('/api/save-infor-doctors', doctorConroller.postInforDoctor);
-    router.get('/api/get-detail-doctor-by-id', doctorConroller.getDetailDoctorById);
-    router.post('/api/bulk-create-schedule', doctorConroller.bulkCreateSchedule);
-    router.get('/api/get-schedule-doctor-by-date', doctorConroller.getScheduleByDate);
-    router.get('/api/get-extra-infor-doctor-by-id', doctorConroller.getExtraDoctorInforById);
-    router.get('/api/get-profile-doctor-by-id', doctorConroller.getProfileDoctorById);
-    
+    router.get('/api/top-doctor-home', doctorController.getTopDoctorHome);
+    router.get('/api/get-all-doctors', doctorController.getAllDoctors);
+    router.post('/api/save-infor-doctors', doctorController.postInforDoctor);
+    router.get('/api/get-detail-doctor-by-id', doctorController.getDetailDoctorById);
+    router.post('/api/bulk-create-schedule', doctorController.bulkCreateSchedule);
+    router.get('/api/get-schedule-doctor-by-date', doctorController.getScheduleByDate);
+    router.get('/api/get-extra-infor-doctor-by-id', doctorController.getExtraDoctorInforById);
+    router.get('/api/get-profile-doctor-by-id', doctorController.getProfileDoctorById);
+
+    router.post('/api/patient-book-appointment', patientController.postBookAppointment);
+
     return app.use("/", router)
 }
 
