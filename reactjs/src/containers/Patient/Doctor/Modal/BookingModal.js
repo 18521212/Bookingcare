@@ -11,6 +11,7 @@ import { LANGUAGES } from '../../../../utils';
 import Select from 'react-select';
 import { postPatientBookAppointment } from '../../../../services/userService';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 
 class BookingModal extends Component {
 
