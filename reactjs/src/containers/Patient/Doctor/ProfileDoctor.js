@@ -8,7 +8,7 @@ import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 import moment from 'moment';
 
-class DefaultClass extends Component {
+class ProfileDoctor extends Component {
 
     constructor(props) {
         super(props);
@@ -58,7 +58,7 @@ class DefaultClass extends Component {
             return (
                 <>
                     <div>{time} - {date}</div>
-                    <div><FormattedMessage id="patient.booking-modal.priceBooking"/></div>
+                    <div><FormattedMessage id="patient.booking-modal.priceBooking" /></div>
                 </>
             )
         }
@@ -104,29 +104,28 @@ class DefaultClass extends Component {
                             }
                         </div>
                     </div>
+                </div>
+                <div className='price'>
+                    <FormattedMessage id="patient.booking-modal.price" />
+                    {dataProfile && dataProfile.Doctor_Infor && language === LANGUAGES.VI &&
+                        <NumberFormat
+                            className='currency'
+                            value={dataProfile.Doctor_Infor.priceTypeData.valueVi}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            suffix='VND'
+                        />
+                    }
 
-                    <div className='price'>
-                    <FormattedMessage id="patient.booking-modal.price"/>
-                        {dataProfile && dataProfile.Doctor_Infor && language === LANGUAGES.VI &&
-                            <NumberFormat
-                                className='currency'
-                                value={dataProfile.Doctor_Infor.priceTypeData.valueVi}
-                                displayType={'text'}
-                                thousandSeparator={true}
-                                suffix='VND'
-                            />
-                        }
-
-                        {dataProfile && dataProfile.Doctor_Infor && language === LANGUAGES.EN &&
-                            <NumberFormat
-                                className='currency'
-                                value={dataProfile.Doctor_Infor.priceTypeData.valueEn}
-                                displayType={'text'}
-                                thousandSeparator={true}
-                                suffix='VND'
-                            />
-                        }
-                    </div>
+                    {dataProfile && dataProfile.Doctor_Infor && language === LANGUAGES.EN &&
+                        <NumberFormat
+                            className='currency'
+                            value={dataProfile.Doctor_Infor.priceTypeData.valueEn}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            suffix='VND'
+                        />
+                    }
                 </div>
             </div>
         );
@@ -144,4 +143,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultClass);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileDoctor);
