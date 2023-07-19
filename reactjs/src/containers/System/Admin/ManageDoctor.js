@@ -173,15 +173,17 @@ class ManageDoctor extends Component {
 
     handleChangeSelect = async (selectedOption) => {
         this.setState({ selectedOption });
-        let { listPayment, listPrice, listProvince } = this.state;
+        let { listPayment, listPrice, listProvince, listSpecialty } = this.state;
 
         let res = await getDetailInforDoctor(selectedOption.value)
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown;
 
             let addressClinic = '', nameClinic = '', note = '',
-                paymentId = '', priceId = '', provinceId = '',
-                selectedPayment = '', selectedPrice = '', selectedProvince = '';
+                paymentId = '', priceId = '', provinceId = '', specialtyId = '',
+                selectedPayment = '', selectedPrice = '', selectedProvince = '',
+                selectedSpecialty = ''
+                ;
 
             if (res.data.Doctor_Infor) {
                 console.log('check res: ', res)
@@ -191,7 +193,7 @@ class ManageDoctor extends Component {
                 paymentId = res.data.Doctor_Infor.paymentId;
                 priceId = res.data.Doctor_Infor.priceId;
                 provinceId = res.data.Doctor_Infor.provinceId;
-                console.log('check doctor infor: ', res.data.Doctor_Infor)
+                specialtyId = res.data.Doctor_Infor.specialtyId;
 
                 selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId
@@ -202,9 +204,10 @@ class ManageDoctor extends Component {
                 selectedProvince = listProvince.find(item => {
                     return item && item.value === provinceId
                 })
-                console.log('check selected: ', selectedPayment, selectedPrice, selectedProvince)
-                console.log('check id: ', paymentId, priceId, provinceId)
-                console.log('check list: ', listPayment, listPrice, listProvince)
+                selectedProvince = listSpecialty.find(item => {
+                    return item && item.value === specialtyId
+                })
+
             }
             this.setState({
                 contentHTML: markdown.contentHTML,
@@ -216,7 +219,8 @@ class ManageDoctor extends Component {
                 note: note,
                 selectedPayment: selectedPayment,
                 selectedPrice: selectedPrice,
-                selectedProvince: selectedProvince
+                selectedProvince: selectedProvince,
+                selectedSpecialty: selectedSpecialty
             })
         } else {
             this.setState({
@@ -226,7 +230,11 @@ class ManageDoctor extends Component {
                 hasOldData: false,
                 addressClinic: '',
                 nameClinic: '',
-                note: ''
+                note: '',
+                selectedPayment: '',
+                selectedPrice: '',
+                selectedProvince: '',
+                selectedSpecialty: ''
             })
         }
     };
@@ -340,7 +348,7 @@ class ManageDoctor extends Component {
                         />
                     </div>
                     <div className='col-4 form-group'>
-                    <label><FormattedMessage id="admin.manage-doctor.select-clinic" /></label>
+                        <label><FormattedMessage id="admin.manage-doctor.select-clinic" /></label>
                         <Select
                             value={this.state.selectedClinic}
                             options={this.state.listClinic}
