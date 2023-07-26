@@ -1,3 +1,11 @@
+div._loading_overplay_wrapper {
+    position: unset;
+
+    ._loading_overplay_overplay {
+        z-index: 1000000;
+    }
+}
+
 .manage-patient-container {
     .m-p-title {
         font-size: 15px;
